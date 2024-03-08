@@ -1,0 +1,139 @@
+SQL
+
+CREATE TABLE Cliente (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Nome VARCHAR(255) NOT NULL,
+  Telefone VARCHAR(20) NOT NULL,
+  Email VARCHAR(255) NOT NULL,
+  Endereco_ID INT,
+  DataNascimento DATE,
+  CPFCNPJ VARCHAR(14) NOT NULL
+);
+
+CREATE TABLE Animal (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Nome VARCHAR(255) NOT NULL,
+  Especie VARCHAR(10) NOT NULL,
+  Raca VARCHAR(255) NOT NULL,
+  Sexo VARCHAR(1) NOT NULL,
+  DataNascimento DATE,
+  Cliente_ID INT,
+  FOREIGN KEY (Cliente_ID) REFERENCES Cliente(ID)
+);
+
+CREATE TABLE Endereco (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Logradouro VARCHAR(255) NOT NULL,
+  Numero INT NOT NULL,
+  Complemento VARCHAR(255) NULL,
+  Bairro VARCHAR(255) NOT NULL,
+  Cidade VARCHAR(255) NOT NULL,
+  Estado VARCHAR(2) NOT NULL,
+  CEP VARCHAR(8) NOT NULL
+);
+
+CREATE TABLE Prontuario (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Animal_ID INT,
+  Data DATE NOT NULL,
+  MotivoConsulta VARCHAR(255) NOT NULL,
+  DescricaoConsulta TEXT NOT NULL,
+  Veterinario_ID INT,
+  Receituario_ID INT,
+  FOREIGN KEY (Animal_ID) REFERENCES Animal(ID),
+  FOREIGN KEY (Veterinario_ID) REFERENCES Veterinario(ID),
+  FOREIGN KEY (Receituario_ID) REFERENCES Receituario(ID)
+);
+
+CREATE TABLE Veterinario (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Nome VARCHAR(255) NOT NULL,
+  CRMV VARCHAR(20) NOT NULL,
+  Especialidade VARCHAR
+);
+
+
+Estrutura de Banco de Dados para Pet Shop com Veterinário
+
+Entidades:
+
+    Cliente:
+        ID (chave primária)
+        Nome
+        Telefone
+        Email
+        Endereço (ID da entidade Endereço)
+        Data de Nascimento
+        CPF/CNPJ
+
+    Animal:
+        ID (chave primária)
+        Nome
+        Espécie (gato ou cachorro)
+        Raça
+        Sexo
+        Data de Nascimento
+        Cliente (ID da entidade Cliente)
+
+    Endereço:
+        ID (chave primária)
+        Logradouro
+        Número
+        Complemento
+        Bairro
+        Cidade
+        Estado
+        CEP
+
+    Prontuário:
+        ID (chave primária)
+        Animal (ID da entidade Animal)
+        Data
+        Motivo da Consulta
+        Descrição da Consulta
+        Veterinário (ID da entidade Veterinário)
+        Receituário (ID da entidade Receituário)
+
+    Veterinário:
+        ID (chave primária)
+        Nome
+        CRMV
+        Especialidade
+
+    Receituário:
+        ID (chave primária)
+        Prontuário (ID da entidade Prontuário)
+        Medicamentos (Lista de IDs da entidade Medicamento)
+        Observações
+
+    Medicamento:
+        ID (chave primária)
+        Nome
+        Dosagem
+        Forma Farmacêutica
+        Quantidade
+        Preço
+
+Relacionamentos:
+
+    Um cliente pode ter vários animais.
+    Um animal tem um único cliente.
+    Um cliente tem um único endereço.
+    Um animal pode ter vários prontuários.
+    Um prontuário tem um único animal.
+    Um prontuário tem um único veterinário.
+    Um veterinário pode ter vários prontuários.
+    Um prontuário pode ter um único receituário.
+    Um receituário pode ter vários medicamentos.
+    Um medicamento pode estar em vários receituários.
+
+Observações:
+
+    A tabela Medicamento pode ter campos adicionais para armazenar informações como fabricante, princípio ativo, contraindicações, etc.
+    A tabela Receituário pode ter campos adicionais para armazenar informações como data de validade, posologia, etc.
+    A tabela Prontuário pode ter campos adicionais para armazenar informações como temperatura, peso, exames realizados, etc.
+    A tabela Veterinário pode ter campos adicionais para armazenar informações como telefone, email, endereço, etc.
+
+
+
+
